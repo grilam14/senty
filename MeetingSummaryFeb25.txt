@@ -1,0 +1,18 @@
+Date: 25 Feb 2018
+
+Members present:
+
+Jonathan
+Max
+Andrew
+Frankie
+Michael
+
+Topics discussed: 
+
+- github, trello, project requirements, etc.
+
+- Created a group github repository and invited all members to be collaborators
+- Created a group Trello board a basic project outline within the board
+- Created and shared a GANTT chart through Google Sheets to outline tasks that need to be completed and assist in time management
+- Outlined the project's requirements, including primary and secondary features in a PDF on the github repository
