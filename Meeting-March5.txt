@@ -1,0 +1,16 @@
+Group Meeting on March 5th
+Attended by: Frankie, Stacy, Andrew, Johnny, Max
+**Michael unable to attend**
+
+Roles:
+Frankie-1st Part of Gantt Chart
+Max-2nd Part of Gantt Chart
+Stacy-Work on Website, Document Meeting
+Johnny-Spear-heading Three Week Sprint on Trello
+Andrew-Working on Hiroku
+
+Accomplished:
+-Finished Gantt Chart
+-Set Up Project Plan on Trello
+-Did Agile Team Stand Up
+-Decided upon a regular weekly meeting every Monday at 6, with additional scheduled meetings as needed.
