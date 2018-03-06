@@ -13,4 +13,5 @@ Accomplished:
 -Finished Gantt Chart
 -Set Up Project Plan on Trello
 -Did Agile Team Stand Up
+-Retrospective Meeting
 -Decided upon a regular weekly meeting every Monday at 6, with additional scheduled meetings as needed.
