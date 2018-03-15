@@ -5,95 +5,65 @@ from textblob import TextBlob
 
 
 class TwitterClient(object):
-    '''
-    Generic Twitter Class for sentiment analysis.
-    '''
-
     def __init__(self):
-        '''
-        Class constructor or initialization method.
-        '''
-        # keys and tokens from the Twitter Dev Console
+        # keys and tokens
         consumer_key = 'XDeWp3DBNl42PflxpUp19MJg9'
         consumer_secret = 'tXBg53eaf1Yqb4F1m47GGL8B79fNsOtln4Z8RajhEvALvp1gZT'
         access_token = '973339215587979264-qVeUpYwoo87VXfVu1F5GEWF9x3yyRAk'
         access_token_secret = 'k3VETXF8npX1FIs1VSF2dSVfT2VKWELIYZQAnykVjRYbQ'
 
-        # attempt authentication
+        # authentication
         try:
-            # create OAuthHandler object
             self.auth = OAuthHandler(consumer_key, consumer_secret)
-            # set access token and secret
             self.auth.set_access_token(access_token, access_token_secret)
-            # create tweepy API object to fetch tweets
             self.api = tweepy.API(self.auth)
         except:
             print("Error: Authentication Failed")
 
     def clean_tweet(self, tweet):
-        '''
-        Utility function to clean tweet text by removing links, special characters
-        using simple regex statements.
-        '''
+        # Remove links and special characters from tweet
+
         return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())
 
     def get_tweet_sentiment(self, tweet):
-        '''
-        Utility function to classify sentiment of passed tweet
-        using textblob's sentiment method
-        '''
-        # create TextBlob object of passed tweet text
+        # get sentiment with textblob library
+
         analysis = TextBlob(self.clean_tweet(tweet))
         # set sentiment
-        if analysis.sentiment.polarity > 0:
+        if analysis.sentiment.polarity > 0.01:
             return 'positive'
         elif analysis.sentiment.polarity == 0:
             return 'neutral'
         else:
             return 'negative'
 
-    def get_tweets(self, query, count=10):
-        '''
-        Main function to fetch tweets and parse them.
-        '''
+    def get_tweets(self, query, count=30):
         # empty list to store parsed tweets
-
-        consumer_key = 'XDeWp3DBNl42PflxpUp19MJg9'
-        consumer_secret = 'tXBg53eaf1Yqb4F1m47GGL8B79fNsOtln4Z8RajhEvALvp1gZT'
-        access_token = '973339215587979264-qVeUpYwoo87VXfVu1F5GEWF9x3yyRAk'
-        access_token_secret = 'k3VETXF8npX1FIs1VSF2dSVfT2VKWELIYZQAnykVjRYbQ'
-
-        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-        auth.set_access_token(access_token, access_token_secret)
-        api = tweepy.API(auth)
         tweets = []
-        max_tweets = 100
 
         try:
-            # call twitter api to fetch tweets
-            searched_tweets = self.api.search(q=query, count=count)
-            fetched_tweets = [status for status in tweepy.Cursor(api.search, q=query).items(max_tweets)]
+            # get tweets
+            new_tweets = self.api.search(q=query, count=count, lang='en', tweet_mode='extended', include_rts=True)
 
-            # parsing tweets one by one
-            for tweet in fetched_tweets:
-                # empty dictionary to store required params of a tweet
+            for tweet in new_tweets:
+                # dictonary of tweets with text and sentiment
                 parsed_tweet = {}
-                print('This is a tweet: ')
-                print(tweet.text)
-                # saving text of tweet
-                parsed_tweet['text'] = tweet.text
-                # saving sentiment of tweet
-                parsed_tweet['sentiment'] = self.get_tweet_sentiment(tweet.text)
+                # get full text of tweet
+                try:
+                    if tweet.retweeted_status:
+                        parsed_tweet['text'] = tweet.retweeted_status.full_text
+                except:
+                    parsed_tweet['text'] = tweet.full_text
+                # get sentiment measure
+                parsed_tweet['sentiment'] = self.get_tweet_sentiment(tweet.full_text)
 
-                # appending parsed tweet to tweets list
+                # add unique tweets
                 if tweet.retweet_count > 0:
-                    # if tweet has retweets, ensure that it is appended only once
                     if parsed_tweet not in tweets:
                         tweets.append(parsed_tweet)
                 else:
                     tweets.append(parsed_tweet)
 
-            # return parsed tweets
             return tweets
 
         except tweepy.TweepError as e:
@@ -101,39 +71,39 @@ class TwitterClient(object):
             print("Error : " + str(e))
 
 
-def main():
-    # creating object of TwitterClient Class
-    api = TwitterClient()
-    # calling function to get tweets
-    tweets = api.get_tweets(query='Donald Trump', count=200)
+def clean_tweet(tweet):
+    return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())
 
-    # picking positive tweets from tweets
-    ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive']
-    # percentage of positive tweets
-    print("Positive tweets percentage: {} %".format(100 * len(ptweets) / len(tweets)))
-    # picking negative tweets from tweets
-    ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative']
-    # percentage of negative tweets
-    print("Negative tweets percentage: {} %".format(100 * len(ntweets) / len(tweets)))
-    # picking neutral tweets from tweets
-    nutweets = [tweet for tweet in tweets if tweet['sentiment'] == 'neutral']
-    # percentage of neutral tweets
-    print("Neutral tweets percentage: {} % \
-            ".format(100 * (len(tweets) - len(ntweets) - len(ptweets)) / len(tweets)))
 
-    # printing first 5 positive tweets
-    print("\n\nPositive tweets:")
+def print_tweets(ptweets, ntweets, neutweets):
+    print("\n\nPositive tweets:")  # self.clean_tweet(tweet)
     for tweet in ptweets[:5]:
-        print(tweet['text'])
-
-    # printing first 5 negative tweets
+        print(ptweets.index(tweet) + 1, ' ', clean_tweet(tweet['text']))
     print("\n\nNegative tweets:")
     for tweet in ntweets[:5]:
-        print(tweet['text'])
-
+        print(ntweets.index(tweet) + 1, ' ', clean_tweet(tweet['text']))
     print("\n\nNeutral tweets:")
-    for tweet in nutweets[:5]:
-        print(tweet['text'])
+    for tweet in neutweets[:5]:
+        print(neutweets.index(tweet) + 1, ' ', clean_tweet(tweet['text']))
+
+
+def main():
+    api = TwitterClient()
+    tweets = api.get_tweets(query='Rex eat the salad', count=200)
+
+    # get positive tweets and print their percentage
+    ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive']
+    print("Positive tweets percentage: {} %".format(100 * len(ptweets) / len(tweets)))
+    # get negative tweets and print their percentage
+    ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative']
+    print("Negative tweets percentage: {} %".format(100 * len(ntweets) / len(tweets)))
+    # get neutra; tweets and print their percentage
+    neutweets = [tweet for tweet in tweets if tweet['sentiment'] == 'neutral']
+    print("Neutral tweets percentage: {} % \
+        ".format(100 * (len(tweets) - len(ntweets) - len(ptweets)) / len(tweets)))
+
+    # printing first 5 positive, negative, and neutral tweets
+    print_tweets(ptweets, ntweets, neutweets)
 
 
 if __name__ == "__main__":
