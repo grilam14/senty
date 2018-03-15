@@ -12,7 +12,12 @@ div {
     padding: 5px;
     float: left;
 }
-
+#logg {
+	height:50px;
+	float: right;
+	background-color: red;
+	width: 13%;
+}
 #input {
     height: 50px;
     background-color: lightgray;
