@@ -1,13 +1,13 @@
 Group Meeting on March 5th
-Attended by: Frankie, Stacy, Andrew, Johnny, Max
-**Michael unable to attend**
+Attended by: Juan Peasley, Stacy Hayes, Andrew Grillot, Jonathan Bayer, Maxim Moghadam
+**Michael Gigiolio unable to attend**
 
 Roles:
-Frankie-1st Part of Gantt Chart
-Max-2nd Part of Gantt Chart
-Stacy-Work on Website, Document Meeting
-Johnny-Spear-heading Three Week Sprint on Trello
-Andrew-Working on Hiroku
+Juan Peasley-1st Part of Gantt Chart
+Maxim Moghadam-2nd Part of Gantt Chart
+Stacy Hayes-Work on Website, Document Meeting
+Jonathan Bayer-Spear-heading Three Week Sprint on Trello
+Andrew Grillot-Working on Hiroku
 
 Accomplished:
 -Finished Gantt Chart
