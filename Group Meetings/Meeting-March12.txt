@@ -2,12 +2,12 @@ Group Meeting on March 12th
 Attended by: ALL MEMBERS
 
 Who Worked on What:
-Stacy-Front End, Website
-Frankie-Documentation, Coordinate Progress
-Johnny-Twitter API
-Max-Bot Detection
-Andrew-Hiroku, Integration
-Michael-Log In Page, Database
+Stacy Hayes-Front End, Website
+Juan Peasley-Documentation, Coordinate Progress
+Jonathan Bayer-Twitter API
+Maxim Moghadam-Bot Detection
+Andrew Grillot-Hiroku, Integration
+Michael Gigiolio-Log In Page, Database
 
 Accomplished:
 -Determined/Finished Milestone 3 Presentables
