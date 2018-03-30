@@ -1,4 +1,4 @@
-Instructions
+Details
 
 This program creates an SQL database containing emails, names, and passwords 
 and integrates it with an html website with three pages (home, login, signup).
