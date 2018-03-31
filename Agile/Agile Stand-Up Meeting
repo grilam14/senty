@@ -1,0 +1,28 @@
+Agile Stand-Up Meeting
+March 5th
+**Michael Gigiolio couldn't make it**
+
+Jonathan Bayer:
+Since the last meeting I have researched Twitter APIs and Bot Detection.
+By the next meeting I will have a better understanding of these and will know how to proceed.
+A roadblock I have encountered is the Twitter API uses JavaScript and I have no experience with this language.
+
+Andrew Grillot:
+I have been working on getting Hiroku up and working so we can start testing and integrating other aspects.
+By the next meeting I will have Hiroku running so we can begin integration.
+I came on with no knowledge about Hiroku, so this has been very challenging.
+
+Juan Peasley:
+I have been researching word quality and ways to implement this into our project.
+By the next meeting I should have defined knowledge about what needs to be done and potentially a start on implementation.
+Determining how to integrate this into our project is proving really challenging.
+
+Maxim Moghadam:
+I've been doing preliminary work on the Gantt Chart and updating Trello.
+By the next meeting I will have finished creating defined completion dates and goals.
+It has been challenging coordinating with the team to organize as much as the Gantt Chart as possible before the meeting.
+
+Stacy Hayes:
+I've been working on getting the website for user interface started.
+By next meeting I should have a preliminary website completed for fine-tuning and integration.
+It has been challenging creating a website that will serve as the front-end without access to any sort of backend.

@@ -1,0 +1,17 @@
+Group Meeting on March 5th
+Attended by: Juan Peasley, Stacy Hayes, Andrew Grillot, Jonathan Bayer, Maxim Moghadam
+**Michael Gigiolio unable to attend**
+
+Roles:
+Juan Peasley-1st Part of Gantt Chart
+Maxim Moghadam-2nd Part of Gantt Chart
+Stacy Hayes-Work on Website, Document Meeting
+Jonathan Bayer-Spear-heading Three Week Sprint on Trello
+Andrew Grillot-Working on Hiroku
+
+Accomplished:
+-Finished Gantt Chart
+-Set Up Project Plan on Trello
+-Did Agile Team Stand Up
+-Retrospective Meeting
+-Decided upon a regular weekly meeting every Monday at 6, with additional scheduled meetings as needed.
