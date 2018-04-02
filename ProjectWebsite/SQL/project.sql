@@ -1,4 +1,6 @@
  CREATE DATABASE project;
+ 
+ USE project;
 
  CREATE TABLE `project`.`tbl_user` (
  `user_id` INT unique AUTO_INCREMENT,
