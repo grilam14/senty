@@ -2,10 +2,10 @@
 
  CREATE TABLE `project`.`tbl_user` (
  `user_id` INT unique AUTO_INCREMENT,
-    ->   `user_name` VARCHAR(45) NULL,
-    ->   `user_username` VARCHAR(45) NULL,
-    ->   `user_password` VARCHAR(45) NULL,
-    ->   PRIMARY KEY (`user_id`));
+    `user_name` VARCHAR(45) NULL,
+    `user_username` VARCHAR(45) NULL,
+    `user_password` VARCHAR(45) NULL,
+    PRIMARY KEY (`user_id`));
 
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_createUser`(
