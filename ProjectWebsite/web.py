@@ -38,11 +38,6 @@ def showSignIn():
     return(render_template('LogIn.html'))
 
 
-@app.route('/signIn')
-def showSignIn():
-    return(render_template('LogIn.html'))
-
-
 @app.route('/showSignUp')
 def showSignUp():
     return(render_template('signup.html'))
