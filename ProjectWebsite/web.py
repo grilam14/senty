@@ -1,5 +1,6 @@
 from flask import Flask, render_template, json, request, redirect
 from flask.ext.mysql import MySQL
+from ScoreCalculate import scoreCalculate
 # from werkzeug import generate_password_hash, check_password_hash
 app = Flask(__name__)
 
@@ -13,27 +14,28 @@ mysql.init_app(app)
 
 @app.route("/")
 def main():
-    return(render_template('Senty.html'))
+     return(render_template('Senty.html'))
 
 @app.route("/",methods=['POST'])
 def score():
 
-    try:
-        conn = mysql.connect()
-        cur = conn.cursor()
+    print('here')
+    conn = mysql.connect()
+    cur = conn.cursor()
 
-        newticker = request.form['ticker']
+    newticker = request.form['ticker']
 
-        newscore = scoreCalculate(newticker)
-        cur.execute("INSERT INTO scores (ticker,score) VALUES (%s, %s)", (newticker, newscore))
-        conn.commit()
-        cur.close()
+    newscore = scoreCalculate(newticker)
+    cur.execute("INSERT INTO scores (ticker,score) VALUES (%s, %s)", (newticker, newscore))
+    print('added')
+    conn.commit()
+    cur.close()
 
-        return redirect('/')
+    return redirect('/')
 
-    except:
-        print('error')
-        return redirect('/')
+@app.route('/signIn')
+def showSignIn():
+    return(render_template('LogIn.html'))
 
 
 @app.route('/signIn')
