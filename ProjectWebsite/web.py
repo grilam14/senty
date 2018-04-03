@@ -15,6 +15,26 @@ mysql.init_app(app)
 def main():
     return(render_template('Senty.html'))
 
+@app.route("/",methods=['POST'])
+def score():
+
+    try:
+        conn = mysql.connect()
+        cur = conn.cursor()
+
+        newticker = request.form['ticker']
+
+        newscore = scoreCalculate(newticker)
+        cur.execute("INSERT INTO scores (ticker,score) VALUES (%s, %s)", (newticker, newscore))
+        conn.commit()
+        cur.close()
+
+        return redirect('/')
+
+    except:
+        print('error')
+        return redirect('/')
+
 
 @app.route('/signIn')
 def showSignIn():
