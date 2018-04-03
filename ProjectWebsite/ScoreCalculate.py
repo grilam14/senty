@@ -1,3 +1,9 @@
+#pip install feedparser
+#pip install requests
+#pip install regex
+#pip install textblob
+#pip install beautifulsoup4
+
 import feedparser
 import requests
 import re
