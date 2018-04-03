@@ -1,0 +1,15 @@
+Group Meeting on April 2nd
+Attended by: ALL MEMBERS
+
+Who Worked on What:
+Stacy Hayes-Websites and Upkeeping Documentation
+Juan Ferrer-Getting integrated sql/frontend running on machine
+Maxim Moghadam-ER diagram of SQL and pdf submission for next milestone
+Andrew Grillot-Getting log-in page working with mysql
+Michael Gigiolio-html formatting
+
+Accomplished:
+-Got integrated sql and frontend working on everyone's devices
+-Worked on Milestone 4 deliverable
+-Started integrating web-scraping scripts with frontend
+-Worked on sql script for login page documentation
