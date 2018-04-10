@@ -8,6 +8,10 @@
     `user_username` VARCHAR(45) NULL,
     `user_password` VARCHAR(45) NULL,
     PRIMARY KEY (`user_id`));
+    
+ CREATE TABLE `project`.`scores` (
+    ticker VARCHAR(45) NULL,
+    score DECIMAL(9,2) NULL);
 
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_createUser`(

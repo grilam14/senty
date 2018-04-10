@@ -1,0 +1,22 @@
+body {
+    background-color: purple;
+}
+#logg {
+	height:128px;
+	width:40%;
+	background-color: red;
+}
+input.texty {
+	height:50px;
+	width:55%;
+	border: 3px solid yellow; 
+	margin: 3px;
+}
+input.squib{
+	height: 70px;
+	width: 10%;
+	border: 3px solid green;
+	float: right;
+	margin: 3px;
+	border-radius: 18px;
+}
