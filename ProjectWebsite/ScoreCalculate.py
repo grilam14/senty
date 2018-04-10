@@ -1,8 +1,9 @@
-#pip install feedparser
-#pip install requests
-#pip install regex
-#pip install textblob
-#pip install beautifulsoup4
+#pip3 install feedparser
+#pip3 install requests
+#pip3 install regex
+#pip3 install textblob
+#pip3 install beautifulsoup4
+#or use pip instead depends on what you're doing
 
 import feedparser
 import requests
