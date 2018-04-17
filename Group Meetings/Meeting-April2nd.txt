@@ -6,6 +6,7 @@ Stacy Hayes-Websites and Upkeeping Documentation
 Juan Ferrer-Getting integrated sql/frontend running on machine
 Maxim Moghadam-ER diagram of SQL and pdf submission for next milestone
 Andrew Grillot-Getting log-in page working with mysql
+Jonathan Bayer-Bot detection
 Michael Gigiolio-html formatting
 
 Accomplished:
