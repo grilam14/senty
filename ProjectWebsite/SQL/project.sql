@@ -11,7 +11,10 @@
     
  CREATE TABLE `project`.`scores` (
     ticker VARCHAR(45) NULL,
-    score DECIMAL(9,2) NULL);
+    score DECIMAL(9,2) NULL,
+    twitterScore DECIMAL(9,2) NULL,
+    user_id INT NULL,
+    PRIMARY KEY (`user_id`));
 
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_createUser`(
@@ -19,6 +22,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_createUser`(
     IN p_username VARCHAR(20),
     IN p_password VARCHAR(20)
 )
+
 BEGIN
     if ( select exists (select 1 from tbl_user where user_username = p_username) ) THEN
      

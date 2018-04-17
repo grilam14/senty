@@ -1,13 +1,14 @@
 from flask import Flask, render_template, json, request, redirect
 from flask.ext.mysql import MySQL
 from ScoreCalculate import scoreCalculate
+import twitterSentiment
 # from werkzeug import generate_password_hash, check_password_hash
 app = Flask(__name__)
 
 mysql = MySQL()
 
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = '' # put your sql password here
+app.config['MYSQL_DATABASE_PASSWORD'] = 'Snakee667!' # put your sql password here
 app.config['MYSQL_DATABASE_DB'] = 'project'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
@@ -22,11 +23,12 @@ def score():
     print('here')
     conn = mysql.connect()
     cur = conn.cursor()
-
+    twitterScore = twitterSentiment.main()
     newticker = request.form['ticker']
+    uID = 1
 
     newscore = scoreCalculate(newticker)
-    cur.execute("INSERT INTO scores (ticker,score) VALUES (%s, %s)", (newticker, newscore))
+    cur.execute("INSERT INTO scores (ticker,score,twitterScore, user_ID) VALUES (%s, %s, %s, %s)", (newticker, newscore, twitterScore, uID))
     print('added')
     conn.commit()
     cur.close()
