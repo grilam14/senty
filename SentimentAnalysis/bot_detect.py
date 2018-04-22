@@ -1,39 +1,144 @@
 import json
 import botometer
-from config import *
 import mysql.connector
+import difflib
+import tweepy
+from tweepy import OAuthHandler
+from datetime import date
+from config import * # config contains API keys and database parameters
 
 
-# acc_name is the @accountname or account ID (from tweet data)
-# for a single twitter account
-#
-# returns the unviersal bot score from botometer from 0-1, where larger
-# values indicate a higher likelihood of the account being a bot
 
-def bot_detector(acc_name):
-	mashape_key = MASHAPE_KEY
-	twitter_app_auth = TWITTER_AUTH
-	db = mysql.connector.connect(**SQLconfig)
+class BotDetector(object):
 
-	cursor = db.cursor()
-	query = "SELECT is_bot FROM accounts WHERE name = " + "'" + acc_name + "'"
-	cursor.execute(query)
-	result = cursor.fetchone()
+	# API authorization and databsae initializiation
+	def __init__(self):
+		#from config
+		mashape_key = MASHAPE_KEY
+		twitter_app_auth = TWITTER_AUTH
+		SQL_config = SQL_CONFIG
+		
+		self.db = mysql.connector.connect(**SQL_config)
 
-	if result is None: #account not yet in database, get score and add to DB
-		meter = botometer.Botometer(mashape_key = mashape_key, **twitter_app_auth)
+		self.meter = botometer.Botometer(mashape_key = mashape_key, 
+			**twitter_app_auth)
+		
+		self.auth = OAuthHandler(TWITTER_AUTH['consumer_key'], 
+			TWITTER_AUTH['consumer_secret'])
+		self.auth.set_access_token(TWITTER_AUTH['access_token'], 
+			TWITTER_AUTH['access_secret'])
 
-		acc_score = json.dumps(meter.check_account(acc_name))
-		acc_score = json.loads(acc_score.strip())['scores']['universal']
+		self.api = tweepy.API(self.auth)
 
-		if float(acc_score) < 0.66:
-			is_bot = 0
+
+	# returns count tweets with query as search term
+	def get_tweets(self, query, count):
+		new_tweets = self.api.search(q=query, count=count, 
+			lang='en', tweet_mode='extended', include_rts=True)
+		return new_tweets
+
+
+	# checks for twitter account in database
+	# returns tuple with Botometer score (if available) and is_bot boolean
+	# returns None if account is not in db
+	def check_db(self, acc_id): 
+		cursor = self.db.cursor()
+		query = "SELECT bot_score, is_bot FROM twitter_users WHERE account_id = "
+		query = query + "'" + str(acc_id) + "'"
+		cursor.execute(query)
+		return cursor.fetchone()
+
+
+	# adds account to database
+	def add_to_db(self, tweet, score, is_bot):
+		query = """INSERT INTO twitter_users (account_id, 
+			account_name, bot_score, is_bot) VALUES(%s,%s,%s,%s)"""
+
+		cursor = self.db.cursor()
+		cursor.execute(query, (tweet.user.id, tweet.user.screen_name, 
+			score, is_bot))
+		self.db.commit()
+
+
+	# checks account with botometer API
+	def get_score(self, acc_id):
+		result = json.dumps(self.meter.check_account(acc_id))
+		result = json.loads(result.strip())
+		return result
+
+
+	# checks similarity of tweets from twitter account with account id acc_id
+	def check_similarity(self, acc_id):
+		timeline = self.api.user_timeline(acc_id)
+
+		statuses = []
+		s_count = 0
+		tot = 0
+		tot_score = 0.0
+
+		for tweets in timeline:
+			statuses.append(tweets)
+			s_count += 1
+
+		for x in range(0,s_count):
+			for y in range(0,s_count):
+				if x != y:
+					tot_score += difflib.SequenceMatcher(None, 
+						statuses[x].text, statuses[y].text).ratio()
+					tot += 1
+
+		if tot == 0:
+			return 0
 		else:
-			is_bot = 1
+			return (tot_score/tot)
 
-		add_acc = "INSERT INTO accounts (name, is_bot) VALUES(%s,%s)"
-		cursor.execute(add_acc, (acc_name, is_bot))
-		db.commit()
-		return is_bot
-	else: #account already checked, return pre-determined bot score
-		return result[0]
+
+	# calculates the average number of tweets posted by the account per day
+	def tweets_per_day(self, user):
+		s_count = float(user.statuses_count)
+		acc_age = float((date.today() - user.created_at.date()).days)
+
+		if acc_age == 0:
+			acc_age += 1
+
+		return (s_count/acc_age)
+
+	# main function to check accounts
+	# takes as input tweet object returned from tweepy search function
+	# returns boolean value, True if account determined to be a bot, 
+	# False if not a bot
+	# Checks DB for account match with Botometer score. Uses faster, 
+	# less accurate checks if no score is found
+	def bot_check(self, tweet):
+		# check if account is in database
+		response = self.check_db(tweet.user.id)
+
+		if response is None: #account not in DB, use quick checks
+			tpd = self.tweets_per_day(tweet.user)
+
+			is_bot = False
+
+			if tpd > 50:
+				sim = self.check_similarity(tweet.user.id)
+				if sim > 0.40:
+					is_bot = True
+
+			self.add_to_db(tweet, 0, is_bot)
+
+			return is_bot
+
+		else: # account already in DB, get pre-determined bot score
+			if response[0] == 0: # account was not scored with Botometer
+				return bool(response[1])
+			elif response[0] < 0.43:
+				return True
+			else:
+				return False
+
+def main():
+	detecto = BotDetector()
+	tweets = detecto.get_tweets('google', 100)
+	for tweet in tweets:
+		print detecto.bot_check(tweet)
+
+main()
