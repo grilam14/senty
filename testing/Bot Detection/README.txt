@@ -12,3 +12,6 @@ To run these tests:
 3. Database:
 	Run the sql script in this folder before running tests to populate database with necessary 
 	twitter accounts.
+	
+4. Execute tests:
+	python test_bot_detect.py
