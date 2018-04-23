@@ -96,17 +96,17 @@ def main():
 
     # get positive tweets and print their percentage
     ptweets = [tweet for tweet in tweets if tweet['sentiment'][0] == 'positive']
-    print("Positive tweets percentage: {} %".format(100 * len(ptweets) / len(tweets)))
+    # print("Positive tweets percentage: {} %".format(100 * len(ptweets) / len(tweets)))
     # get negative tweets and print their percentage
     ntweets = [tweet for tweet in tweets if tweet['sentiment'][0] == 'negative']
-    print("Negative tweets percentage: {} %".format(100 * len(ntweets) / len(tweets)))
+    # print("Negative tweets percentage: {} %".format(100 * len(ntweets) / len(tweets)))
     # get neutra; tweets and print their percentage
     neutweets = [tweet for tweet in tweets if tweet['sentiment'][0] == 'neutral']
-    print("Neutral tweets percentage: {} % \
-        ".format(100 * (len(tweets) - len(ntweets) - len(ptweets)) / len(tweets)))
+    # print("Neutral tweets percentage: {} % \
+     #    ".format(100 * (len(tweets) - len(ntweets) - len(ptweets)) / len(tweets)))
 
     # printing first 5 positive, negative, and neutral tweets
-    print_tweets(ptweets, ntweets, neutweets)
+    # print_tweets(ptweets, ntweets, neutweets)
     s = 0
     i = 0
     for tweet in tweets:
