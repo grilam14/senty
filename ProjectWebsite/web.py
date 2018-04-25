@@ -1,10 +1,13 @@
-from flask import Flask, render_template, json, request, redirect
+from flask import Flask, render_template, json, request, redirect, session
 from flask.ext.mysql import MySQL
+#from flask_login import LoginManager, current_user, login_required, login_user, logout_user, UserMixin, AnonymousUserMixin, confirm_login, fresh_login_required
+from flask_security import Security, SQLAlchemyUserDatastore, \
+    UserMixin, RoleMixin, login_required
 from ScoreCalculate import scoreCalculate
 import twitterSentiment
-# from werkzeug import generate_password_hash, check_password_hash
-app = Flask(__name__)
 
+
+app = Flask(__name__)
 mysql = MySQL()
 
 app.config['MYSQL_DATABASE_USER'] = 'root'
@@ -12,6 +15,9 @@ app.config['MYSQL_DATABASE_PASSWORD'] = '' # put your sql password here
 app.config['MYSQL_DATABASE_DB'] = 'project'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
+
+
+
 
 @app.route("/")
 def main():
@@ -35,9 +41,38 @@ def score():
 
     return redirect('/')
 
+
 @app.route('/showSignIn')
 def showSignIn():
-    return(render_template('login.html'))
+    if session.get('user'):
+        return render_template('Senty.html')
+    else:
+        return render_template('login.html')
+
+@app.route('/validateLogin',methods=['POST'])
+def validateLogin():
+    try:
+        _username = request.form['inputEmail']
+        _password = request.form['inputPassword']
+ 
+        con = mysql.connect()
+        cursor = con.cursor()
+        cursor.callproc('sp_validateLogin',(_username,))
+        data = cursor.fetchall()
+ 
+        if len(data) > 0:
+            if str(data[0][3]) ==_password:
+                session['user'] = data[0][0]
+                return redirect('/')
+            else:
+                return render_template('error.html',error = 'Wrong Email address or Password.')
+        else:
+            return render_template('error.html',error = 'Wrong Email address or Password.')
+    except Exception as e:
+        return render_template('error.html',error = str(e))
+    finally:
+        cursor.close()
+        con.close()
 
 
 @app.route('/showSignUp')
@@ -64,9 +99,9 @@ def signUp():
 
             if len(data) is 0:
                 conn.commit()
-                return json.dumps({'message':'User created successfully !'})
+                return(json.dumps({'message':'User created successfully !'}))
             else:
-                return json.dumps({'error':str(data[0])})
+                return(json.dumps({'error':str(data[0])}))
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
 
@@ -78,4 +113,8 @@ def signUp():
 
 
 if __name__ == "__main__":
+    
+    app.secret_key = 'super secret key'
+    app.config['SESSION_TYPE'] = 'filesystem'
+
     app.run()
