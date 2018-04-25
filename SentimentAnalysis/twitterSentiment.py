@@ -1,5 +1,6 @@
 import re
 import tweepy
+import bot_detect
 from tweepy import OAuthHandler
 from textblob import TextBlob
 
@@ -19,6 +20,9 @@ class TwitterClient(object):
             self.api = tweepy.API(self.auth)
         except:
             print("Error: Authentication Failed")
+            
+        # initialize bot detector
+        self.detecto = bot_detect.BotDetector()
 
     def clean_tweet(self, tweet):
         # Remove links and special characters from tweet
@@ -46,23 +50,24 @@ class TwitterClient(object):
             new_tweets = self.api.search(q=query, count=count, lang='en', tweet_mode='extended', include_rts=True)
 
             for tweet in new_tweets:
-                # dictonary of tweets with text and sentiment
-                parsed_tweet = {}
-                # get full text of tweet
-                try:
-                    if tweet.retweeted_status:
-                        parsed_tweet['text'] = tweet.retweeted_status.full_text
-                except:
-                    parsed_tweet['text'] = tweet.full_text
-                # get sentiment measure
-                parsed_tweet['sentiment'] = self.get_tweet_sentiment(tweet.full_text)
+                if self.detecto.bot_check(tweet.user) == False:
+                    # dictonary of tweets with text and sentiment
+                    parsed_tweet = {}
+                    # get full text of tweet
+                    try:
+                        if tweet.retweeted_status:
+                            parsed_tweet['text'] = tweet.retweeted_status.full_text
+                    except:
+                        parsed_tweet['text'] = tweet.full_text
+                    # get sentiment measure
+                    parsed_tweet['sentiment'] = self.get_tweet_sentiment(tweet.full_text)
 
-                # add unique tweets
-                if tweet.retweet_count > 0:
-                    if parsed_tweet not in tweets:
+                    # add unique tweets
+                    if tweet.retweet_count > 0:
+                        if parsed_tweet not in tweets:
+                            tweets.append(parsed_tweet)
+                    else:
                         tweets.append(parsed_tweet)
-                else:
-                    tweets.append(parsed_tweet)
 
             return tweets
 
@@ -93,17 +98,17 @@ def main():
 
     # get positive tweets and print their percentage
     ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive']
-    print("Positive tweets percentage: {} %".format(100 * len(ptweets) / len(tweets)))
+    # print("Positive tweets percentage: {} %".format(100 * len(ptweets) / len(tweets)))
     # get negative tweets and print their percentage
     ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative']
-    print("Negative tweets percentage: {} %".format(100 * len(ntweets) / len(tweets)))
+    # print("Negative tweets percentage: {} %".format(100 * len(ntweets) / len(tweets)))
     # get neutra; tweets and print their percentage
     neutweets = [tweet for tweet in tweets if tweet['sentiment'] == 'neutral']
-    print("Neutral tweets percentage: {} % \
-        ".format(100 * (len(tweets) - len(ntweets) - len(ptweets)) / len(tweets)))
+    # print("Neutral tweets percentage: {} % \
+    #    ".format(100 * (len(tweets) - len(ntweets) - len(ptweets)) / len(tweets)))
 
     # printing first 5 positive, negative, and neutral tweets
-    print_tweets(ptweets, ntweets, neutweets)
+    # print_tweets(ptweets, ntweets, neutweets)
 
 
 if __name__ == "__main__":
