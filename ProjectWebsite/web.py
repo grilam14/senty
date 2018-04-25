@@ -42,12 +42,24 @@ def index():
         print('rendering Senty.html')
         return render_template('Senty.html') 
 
+@app.route('/home')
+def home():
+    if session.get('user'):
+        return render_template('home.html')
+    else:
+        return render_template('error.html',error = 'Unauthorized Access')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('user',None)
+    return redirect('/')
 
 
 @app.route('/showSignIn')
 def showSignIn():
     if session.get('user'):
-        return render_template('Senty.html')
+        return redirect(url_for('home'))
     else:
         return render_template('login.html')
 
@@ -65,7 +77,7 @@ def validateLogin():
         if len(data) > 0:
             if str(data[0][3]) ==_password:
                 session['user'] = data[0][0]
-                return redirect('/')
+                return redirect(url_for('home'))
             else:
                 return render_template('error.html',error = 'Wrong Email address or Password.')
         else:
@@ -75,7 +87,6 @@ def validateLogin():
     finally:
         cursor.close()
         con.close()
-    
 
 
 @app.route('/signUp',methods=['POST','GET'])
