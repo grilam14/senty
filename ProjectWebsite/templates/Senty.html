@@ -8,19 +8,116 @@
 </head>
 <style>
 body{ background-color: #92a8d1;}
+div.1{
+	font-family: "AR DESTINE";
+	font-size: 500%;
+}
 </style>
 
 <body >
  
-<div id="logg" style="text-align:right">
-	<p>
-		<a href="showSignIn">Log In</a>
-    <a href="showSignUp">Sign Up</a>
-    <a href="/">Home</a>
-	</p>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box;}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #e9e9e9;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #92a8d1;
+  color: white;
+}
+
+.topnav .search-container {
+  float: right;
+}
+
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.topnav .search-container button {
+  float: right;
+  padding: 6px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+  }
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;  
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a href="#home">Home</a>
+  <a href="#about">Log in</a>
+  <a href="#contact">Sign up</a>
+  <a class="active"  href="#contact">Senti</a>
+  <div class="search-container">
+    <form action="/action_page.php">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 </div>
-<font size="8" face="Verdana"><center>Senty</center></font>
-<font size="6" face="Verdana"><center>Your Quick Stock Tool</center></font>
+
+</body>
+
+<div class= "1" style="font-size:400% ; font-family: AR DESTINE; color:#5B1B7C">
+ <center>SENTY</center>
+ </div>
+
+
+<div class="2" style="font-size:150%; font-family:Times New Roman;" ><center>YOUR QUICK STOCK TOOL</center> </div>
     <div id="menu" class="w3-container" style="text-align:center">
        
             <p>
@@ -31,28 +128,29 @@ body{ background-color: #92a8d1;}
                <a href="file:///home/user/Documents/SoftwareDev/Project/Senty.html#part2">How It Works</a>
             </p>
  
-    <font size="6" face="Courier New">SENTY</font>
+
     </div>
-    <div id="input" class="w-3 container"   style="text-align:center">
+    <div id="input" class="w-3 container"   style="text-align:center;>
        <form method="POST">
           <input name="ticker">
           <input type="submit">
         </form>
     </div>
     <div id="Info">
-        <div id="part1">
+        <div id="part1" style= "color:#5B1B7C; border-left: 3px solid red;">
               <font size="5"><b>What It Is</b></font>
         </div>
-       <div id="info1"> <p>
-              Senty is a tool which searches articles and twitter, and using sentiment analysis, determines the
+       <div id="info1" style="font-family:Times New Roman; "> <p>
+              Senty is a tool which searches articles and Twitter, and using sentiment analysis, determines the
               positivity of current public perception of a given company. This is a simple online tool intended
               to give users quick overviews of a company's perception with which they can advise their investment decisions.
         </p></div>
-        <div id="part2">
+        <div id="part2" style="color:#5B1B7C; border-left: 3px solid red;">
              <font size="5"><b>How It Works</b></font>
         </div>
-        <div id="info2"><p>
-              By very complicated sentiment analysis. Ask a team member who is working on this.
+        <div id="info2" style="font-family:Times New Roman;"><p>
+              We draw data from Twitter and the news media. After filtering out posts not by real humans, we determine the general sentiment, compile it
+			  with the sentiment from all the other posts, and report the results back to you.
         </p></div>
     </div>
 </body>
