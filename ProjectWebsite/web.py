@@ -42,12 +42,28 @@ def index():
         print('rendering Senty.html')
         return render_template('Senty.html') 
 
-@app.route('/home')
+@app.route('/home', methods = ['GET', 'POST'])
 def home():
-    if session.get('user'):
-        return render_template('home.html')
+    if request.method == 'GET':
+        if session.get('user'):
+            return render_template('home.html')
+        else:
+            return render_template('error.html',error = 'Unauthorized Access')
+
     else:
-        return render_template('error.html',error = 'Unauthorized Access')
+        conn = mysql.connect()
+        cur = conn.cursor()
+        twitterScore = twitterSentiment.main()
+        newticker = request.form['ticker']
+        uID = 1#this needs to be changed when we get login working
+
+        newscore = scoreCalculate(newticker)
+        cur.execute("INSERT INTO scores (ticker,score,twitterScore, user_ID) VALUES (%s, %s, %s, %s)", (newticker, newscore, twitterScore, uID))
+        print('added')
+        conn.commit()
+        cur.close()
+
+        return redirect('/home')
 
 
 @app.route('/logout')
