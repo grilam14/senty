@@ -1,4 +1,6 @@
-from flask import Flask, render_template, json, request, redirect, session
+
+from flask import Flask, render_template, json, request, redirect, session, url_for
+from flask import Flask, render_template, json, request, redirect, url_for
 from flask.ext.mysql import MySQL
 #from flask_login import LoginManager, current_user, login_required, login_user, logout_user, UserMixin, AnonymousUserMixin, confirm_login, fresh_login_required
 from flask_security import Security, SQLAlchemyUserDatastore, \
@@ -18,28 +20,32 @@ mysql.init_app(app)
 
 
 
-
 @app.route("/")
 def main():
      return(render_template('Senty.html'))
 
-@app.route("/",methods=['POST'])
-def score():
+@app.route("/", methods= ['GET','POST'])
+def index():
+    if request.method == 'POST':
+        print('here')
+        conn = mysql.connect()
+        cur = conn.cursor()
+        twitterScore = twitterSentiment.main()
+        newticker = request.form['ticker']
+        uID = 1#this needs to be changed when we get login working
 
-    print('here')
-    conn = mysql.connect()
-    cur = conn.cursor()
-    twitterScore = twitterSentiment.main()
-    newticker = request.form['ticker']
-    uID = 1
+        newscore = scoreCalculate(newticker)
+        cur.execute("INSERT INTO scores (ticker,score,twitterScore, user_ID) VALUES (%s, %s, %s, %s)", (newticker, newscore, twitterScore, uID))
+        print('added')
+        conn.commit()
+        cur.close()
 
-    newscore = scoreCalculate(newticker)
-    cur.execute("INSERT INTO scores (ticker,score,twitterScore, user_ID) VALUES (%s, %s, %s, %s)", (newticker, newscore, twitterScore, uID))
-    print('added')
-    conn.commit()
-    cur.close()
+        return redirect('/')
 
-    return redirect('/')
+    else:
+        print('rendering Senty.html')
+        return render_template('Senty.html') 
+
 
 
 @app.route('/showSignIn')
@@ -73,11 +79,13 @@ def validateLogin():
     finally:
         cursor.close()
         con.close()
-
+    
 
 @app.route('/showSignUp')
 def showSignUp():
-    return(render_template('signup.html'))
+
+    return (render_template('signup.html'))
+    
 
 
 @app.route('/signUp',methods=['POST','GET'])
