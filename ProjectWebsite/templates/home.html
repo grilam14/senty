@@ -99,11 +99,14 @@ body {
   <a class="active" href="#home">Home</a>
   <a href="login.html">Log In</a>
   <a href="signup.html">Sign Up</a>
-  <div class="search-container">
-    <form action="/action_page.php">
-      <input type="text" placeholder="Search.." name="search">
-      <button type="submit">Submit</button>
-    </form>
+  
+  <div id="input" class="w-3 container"   style="text-align:center">
+       <form method="POST">
+          <input name="ticker">
+          <input type="submit" value="Search a Stock">
+        </form>
+    </div>
+  
   </div>
 </div>
 
@@ -135,6 +138,14 @@ body {
     <div class="w3-third w3-center">
       <i class="fa fa-coffee w3-padding-64 w3-text-red w3-margin-right"></i>
     </div>
+    
+     <div class="jumbotron">
+        <h1>Welcome to senty!</h1>
+        <h2>Powered by:</h2>
+        <img src='https://static1.seekingalpha.com/assets/og_image-50022ea814500e66061fbdfbfd072f46a0d0a319f21c1d63785483b21dd4b7d8.png' width="200" height="200">
+        and
+        <img src="http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c53e.png" width="200" height="200">
+      </div>
 
     <div class="w3-twothird">
       <h1>Why Use Senty?</h1>
