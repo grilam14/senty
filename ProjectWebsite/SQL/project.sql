@@ -13,8 +13,8 @@
     ticker VARCHAR(45) NULL,
     score DECIMAL(9,2) NULL,
     twitterScore DECIMAL(9,2) NULL,
-    user_id INT NULL,
-    PRIMARY KEY (`user_id`));
+    user_id INT NULL
+    );
 
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_createUser`(
