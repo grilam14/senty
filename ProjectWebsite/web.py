@@ -108,7 +108,7 @@ def validateLogin():
         con.close()
 
 
-@app.route('/signUp',methods=['POST','GET'])
+@app.route('/signUp',methods=['GET','POST'])
 def signUp():
     
     # still need to create signup class and transfer below code to new file
