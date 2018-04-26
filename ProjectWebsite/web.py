@@ -1,7 +1,6 @@
 
 from flask import Flask, render_template, json, request, redirect, session, url_for
-from flask import Flask, render_template, json, request, redirect, url_for
-from flask.ext.mysql import MySQL
+from flaskext.mysql import MySQL
 #from flask_login import LoginManager, current_user, login_required, login_user, logout_user, UserMixin, AnonymousUserMixin, confirm_login, fresh_login_required
 from flask_security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
@@ -45,16 +44,19 @@ def index():
 @app.route('/home', methods = ['GET', 'POST'])
 def home():
     if request.method == 'GET':
-        if session.get('user'):
-            return render_template('home.html')
-        else:
-            return render_template('error.html',error = 'Unauthorized Access')
+        return render_template('home.html')
 
     else:
+        return redirect('/result')
+
+
+@app.route('/result', methods = ['GET', 'POST'])
+def result():
+    if request.method == 'POST':
         conn = mysql.connect()
         cur = conn.cursor()
-        twitterScore = twitterSentiment.main()
         newticker = request.form['ticker']
+        twitterScore = twitterSentiment.main(newticker)
         uID = 1#this needs to be changed when we get login working
 
         newscore = scoreCalculate(newticker)
@@ -62,7 +64,8 @@ def home():
         print('added')
         conn.commit()
         cur.close()
-
+        return render_template('result.html', tScore = twitterScore, nScore = newscore)
+    else:
         return redirect('/home')
 
 
