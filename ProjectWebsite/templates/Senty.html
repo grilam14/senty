@@ -1,21 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-
-
 <html>
-<head>
-    <link href="static/css/Senty.css" type="text/css" rel="stylesheet"/>
-</head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-body{ background-color: #92a8d1;}
-div.1{
-	font-family: "AR DESTINE";
-	font-size: 500%;
-}
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
 </style>
-
 <body >
- 
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -24,6 +21,13 @@ div.1{
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+input {
+  width: 150px;
+  height: 50px;
+  text-align: center;
 }
 
 .topnav {
@@ -96,74 +100,84 @@ body {
 </style>
 </head>
 <body>
+</body>
 
-<div class="topnav">
-  <a href="#home">Home</a>
-  <a href="#about">Log in</a>
-  <a href="#contact">Sign up</a>
-  <a class="active"  href="#contact">Senty</a>
-  <div class="search-container">
-    <form action="/action_page.php">
-      <input type="text" placeholder="Search.." name="search">
-      <button type="submit">Submit</button>
-    </form>
+<!-- Header -->
+<header class="w3-container" style="background-color:#92a8d1" >
+  <div id="input" class="w-3 container" style="text-align:right">
+    <p>
+      <a href="showSignIn">Log In</a>
+        |
+      <a href="signUp">Sign Up</a>
+        |
+      <a href="/">Home</a>
+        |
+      <a href='home'>Welcome Page</a>
+    </p>
+  </div>
+  <h1 class="w3-margin w3-jumbo" style=" font-family: Verdana; color:#5B1B7C"><u><b>Welcome to Senty</b></u></h1>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h1>Our Main Goal</h1>
+      <h5 class="w3-padding-32">Here at Senty we strive to make investing more accessible to everyone. We do this by offering our services online for free. Our services can assist users in investment decisions by providing a general overview of the public's opinion with regards to the user's chosen companies. We implement these services by performing basic web scraping and sentiment analysis on articles online as well as tweets to summarize public perception of the company searched for.<br/><br/>To begin using these online tools, sign up today <b>for free</b> and begin searching companies today using the search bar in the top-right of the home page.</h5>
+
+      <p class="w3-text-grey">When searching for a company in the search bar, please enter the stock abbreviation for that company instead of the company's name. This abbreviation should be entered in all caps.<br/>
+      Example: For Amazon enter "AMZN"</p>
+    </div>
+
+    <div class="w3-third w3-center">
+      <i class="fa fa-line-chart w3-padding-64" style="font-size:250px;"></i>
+    </div>
   </div>
 </div>
 
-</body>
+<!-- Second Grid -->
 
-<div class= "1" style="font-size:400% ; font-family: AR DESTINE; color:black">
- <center>SENTY</center>
- </div>
- <div id="logg" style="text-align:center">
-      <p>
-        <a href="showSignIn">Log In</a>
-        |
-         <a href="signUp">Sign Up</a>
-         |
-         <a href="/">Home</a>
-         |
-         <a href='home'>Welcome Page</a>
-      </p>
-      </div>
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h1>Why Use Senty?</h1>
+      <h5 class="w3-padding-32">Senty is a free online tool intended to assist users in making wise investment decisions. We provide users the best experience possible by incorporating different forms of media for analysis. This allows users to easily dissect general public perception of companies they are considering investing in.</h5>
 
-
-<div class="2" style="font-size:150%; font-family:Times New Roman;" ><center>YOUR QUICK STOCK TOOL</center> </div>
-    <div id="menu" class="w3-container" style="text-align:center">
-       
-            <p>
-               <a href="file:///home/user/Documents/SoftwareDev/Project/Senty.html#input">GoTo Search</a>
- 
-               <a href="file:///home/user/Documents/SoftwareDev/Project/Senty.html#part1">What It Is</a>
-
-               <a href="file:///home/user/Documents/SoftwareDev/Project/Senty.html#part2">How It Works</a>
-            </p>
- 
-
+      <p class="w3-text-grey">Note: Senty is designed to be a quick, easy to use, tool to give users a general overview of public perception of various companies. It is not intended to be the sole informational source for investors. We recommend using Senty as a supplement to other resources when making investment decisions.</p>
     </div>
-    <div id="input" class="w-3 container"   style="text-align:center;>
-       <form method="POST">
-          <input name="ticker">
-          <input type="submit">
-        </form>
+    <div class="w3-third w3-center">
+      <i class="fa fa-users" style="font-size:100px;color:purple"></i><br/><br/><br/>
+      <i class="fa fa-arrow-down" style="font-size:50px;"></i><br/><br/><br/>
+      <i class="fa fa-usd" style="font-size:100px;color:green"></i>
     </div>
-    <div id="Info">
-        <div id="part1" style= "color:#5B1B7C; border-left: 3px solid red;">
-              <font size="5"><b>What It Is</b></font>
-        </div>
-       <div id="info1" style="font-family:Times New Roman; "> <p>
-              Senty is a tool which searches articles and Twitter, and using sentiment analysis, determines the
-              positivity of current public perception of a given company. This is a simple online tool intended
-              to give users quick overviews of a company's perception with which they can advise their investment decisions.
-        </p></div>
-        <div id="part2" style="color:#5B1B7C; border-left: 3px solid red;">
-             <font size="5"><b>How It Works</b></font>
-        </div>
-        <div id="info2" style="font-family:Times New Roman;"><p>
-              We draw data from Twitter and the news media. After filtering out posts not by real humans, we determine the general sentiment, compile it
-			  with the sentiment from all the other posts, and report the results back to you.
-        </p></div>
+  </div>
+</div>
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-32">
+  <div class=row>
+    <div class="w3-col m8 l7">
+      <h2><u><b>Senty is Powered By</b></u></h2>
+      <img src='https://static1.seekingalpha.com/assets/og_image-50022ea814500e66061fbdfbfd072f46a0d0a319f21c1d63785483b21dd4b7d8.png' width="200" height="200">
+      <img src="http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c53e.png" width="200" height="200">
     </div>
+    <div class="w3-col m4 l3">
+      <h1 class="w3-margin w3-xlarge">An investment in knowledge<br/>pays the best interest.</h1>
+      <p>~Benjamin Franklin~</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }3
+}
+</script>
+
 </body>
 </html>
-
