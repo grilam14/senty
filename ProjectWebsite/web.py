@@ -61,8 +61,9 @@ def result():
         cur = conn.cursor()
         newticker = request.form['ticker']
         twitterScore = twitterSentiment.main(newticker)
-        uID = 1#this needs to be changed when we get login working
-
+        uID = -1
+        if session.get('user'):
+            uID = int(session['user'])
         newscore = scoreCalculate(newticker)
         cur.execute("INSERT INTO scores (ticker,score,twitterScore, user_ID) VALUES (%s, %s, %s, %s)", (newticker, newscore, twitterScore, uID))
         print('added')
