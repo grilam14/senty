@@ -1,13 +1,223 @@
 <!DOCTYPE html>
-
 <html>
-	<head>
-		<title>Results</title>
-	</head>
-	<body>
-		<p> Company's twitter sentiment score is: </p>
-		<p> {{ tScore }} </p>
-		<p> Company's news media score is: </p>
-		<p> {{ nScore }}
-	</body>
+<title>{{ company }} Sentiment</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+<body >
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box;}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+input {
+  width: 150px;
+  height: 50px;
+  text-align: center;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #e9e9e9;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #92a8d1;
+  color: white;
+}
+
+.topnav .search-container {
+  float: right;
+}
+
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.topnav .search-container button {
+  float: right;
+  padding: 6px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+  }
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;  
+  }
+}
+</style>
+</head>
+<body>
+</body>
+
+<!-- Header -->
+<header class="w3-container" style="background-color:#92a8d1" >
+  <div id="input" class="w-3 container" style="text-align:right">
+    <p>
+      <a href="/logout">Log Out</a>
+        |
+      <a href="signUp">Sign Up</a>
+        |
+      <a href="/">Home</a>
+    </p>
+  </div>
+  <h1 class="w3-margin w3-jumbo" style=" font-family: Verdana; color:#5B1B7C"><u><b>Welcome to Senty</b></u></h1>
+</header>
+
+<div class="w3-row-padding w3-padding-16 w3-container" style="background-color:#c6d5f2; height:150px;">
+  <div class="w3-twothird">
+    <h2>Search for a Stock:</h2>
+    <form action="http://localhost:5000/result" method="POST">
+    <input name="ticker">
+    <input type="submit" value="Search" style="height:30px; width:70px;">
+    </form>
+  </div>
+</div>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h1>Scores for {{ company }}</h1>
+      <h1>Twitter Sentiment</h1>
+
+      {% if tScore > 12.0 %}
+      <h2 class="w3-padding-32" style="color:green"> {{ tScore }} </h2>
+
+      <p> {{ company }} scores well with Twitter users. The company may have recently made a great PR move or released a well-received product. Consider investing, but take caution as public opinion does not always mirror financial wellbeing.
+      </p>
+
+      {% elif tScore > 9.5 %}
+      <h2 class="w3-padding-32" style="color:orange"> {{ tScore }} </h2>
+
+      <p> {{ company }} has an average score with Twitter users. The public does not feel very strongly about this company. Consider as a long term, relatively low risk investment
+      </p>
+
+      {% else %}
+      <h2 class="w3-padding-32" style="color:red"> {{ tScore }} </h2>
+
+      <p> {{ comapny }} is not well liked by Twitter users. This suggests the company has recently done something to make the internet angry. In response to this you should BUY THE DIP
+      </p>
+      {% endif %}
+
+    </div>
+
+    <div class="w3-third w3-right">
+      <img src="http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c53e.png" width="500">
+    </div>
+  </div>
+</div>
+
+<!-- Second Grid -->
+
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h1>News Media Sentiment</h1>
+
+      {% if nScore > 12.0 %}
+      <h2 class="w3-padding-32" style="color:green"> {{ nScore }} </h2>
+
+      <p> {{ company }} scores well in the news. This suggests the company has has done something recently to make itself look good to journalists. Strongly consider investing. 
+      </p>
+
+      {% elif nScore > 9.5 %}
+      <h2 class="w3-padding-32" style="color:orange"> {{ nScore }} </h2>
+
+      <p> {{ company }} has an average score in the news. While they're not getting themselves in to trouble, they're not doing anything spectacular either. Consider investing if looking for some riskier ventures.
+      </p>
+
+      {% else %}
+      <h2 class="w3-padding-32" style="color:red"> {{ nScore }} </h2>
+
+      <p> {{ comapny }} has a poor score in the news. The comapny may have recently posted financial losses or made a bad PR move. The obvious best move is to BUY THE DIP
+      </p>
+      {% endif %}
+
+    </div>
+    <div class="w3-third w3-right">
+      <img src="http://indianassociationdenmark.com/wp-content/uploads/2017/02/news.jpg" width="500">
+    </div>
+  </div>
+</div>
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-32">
+  <div class=row>
+    <div class="w3-col m8 l7">
+      <h2><u><b>Senty is Powered By</b></u></h2>
+      <img src='https://static1.seekingalpha.com/assets/og_image-50022ea814500e66061fbdfbfd072f46a0d0a319f21c1d63785483b21dd4b7d8.png' width="200" height="200">
+      <img src="http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c53e.png" width="200" height="200">
+    </div>
+    <div class="w3-col m4 l3">
+      <h1 class="w3-margin w3-xlarge">An investment in knowledge<br/>pays the best interest.</h1>
+      <p>~Benjamin Franklin~</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }3
+}
+</script>
+
+</body>
 </html>

@@ -1,18 +1,20 @@
 
 from flask import Flask, render_template, json, request, redirect, session, url_for
+from flask import Flask, render_template, json, request, redirect, url_for
 from flaskext.mysql import MySQL
 #from flask_login import LoginManager, current_user, login_required, login_user, logout_user, UserMixin, AnonymousUserMixin, confirm_login, fresh_login_required
 from flask_security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
 from ScoreCalculate import scoreCalculate
 import twitterSentiment
+from config import *
 
 
 app = Flask(__name__)
 mysql = MySQL()
 
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = '' # put your sql password here
+app.config['MYSQL_DATABASE_PASSWORD'] = SQL_CONFIG['password'] # put your sql password here
 app.config['MYSQL_DATABASE_DB'] = 'project'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
@@ -44,11 +46,13 @@ def index():
 @app.route('/home', methods = ['GET', 'POST'])
 def home():
     if request.method == 'GET':
-        return render_template('home.html')
+        if session.get('user'):
+            return render_template('home.html')
+        else:
+            return render_template('error.html',error = 'Unauthorized Access')
 
     else:
         return redirect('/result')
-
 
 @app.route('/result', methods = ['GET', 'POST'])
 def result():
@@ -64,10 +68,10 @@ def result():
         print('added')
         conn.commit()
         cur.close()
-        return render_template('result.html', tScore = twitterScore, nScore = newscore)
+        return render_template('result.html', tScore = twitterScore, 
+            nScore = newscore, company = newticker)
     else:
         return redirect('/home')
-
 
 @app.route('/logout')
 def logout():
@@ -92,8 +96,14 @@ def validateLogin():
         cursor = con.cursor()
         cursor.callproc('sp_validateLogin',(_username,))
         data = cursor.fetchall()
+
+        cursor.close()
+        con.close()
  
         if len(data) > 0:
+            print (data[0][1])
+            print (data[0][2])
+            print (data[0][3])
             if str(data[0][3]) ==_password:
                 session['user'] = data[0][0]
                 return redirect(url_for('home'))
@@ -103,12 +113,9 @@ def validateLogin():
             return render_template('error.html',error = 'Wrong Email address or Password.')
     except Exception as e:
         return render_template('error.html',error = str(e))
-    finally:
-        cursor.close()
-        con.close()
 
 
-@app.route('/signUp',methods=['GET','POST'])
+@app.route('/signUp',methods=['POST','GET'])
 def signUp():
     
     # still need to create signup class and transfer below code to new file

@@ -2,6 +2,7 @@ import re
 import tweepy
 from tweepy import OAuthHandler
 from textblob import TextBlob
+import bot_detect
 
 
 class TwitterClient(object):
@@ -19,6 +20,8 @@ class TwitterClient(object):
             self.api = tweepy.API(self.auth)
         except:
             print("Error: Authentication Failed")
+
+        self.detecto = bot_detect.BotDetector()
 
     def clean_tweet(self, tweet):
         # Remove links and special characters from tweet
@@ -40,7 +43,7 @@ class TwitterClient(object):
             x = ['negative', analysis.sentiment.polarity]
             return x
 
-    def get_tweets(self, query, count):
+    def get_tweets(self, query, count=30):
         # empty list to store parsed tweets
         tweets = []
 
@@ -49,23 +52,24 @@ class TwitterClient(object):
             new_tweets = self.api.search(q=query, count=count, lang='en', tweet_mode='extended', include_rts=True)
 
             for tweet in new_tweets:
-                # dictonary of tweets with text and sentiment
-                parsed_tweet = {}
-                # get full text of tweet
-                try:
-                    if tweet.retweeted_status:
-                        parsed_tweet['text'] = tweet.retweeted_status.full_text
-                except:
-                    parsed_tweet['text'] = tweet.full_text
-                # get sentiment measure
-                parsed_tweet['sentiment'] = self.get_tweet_sentiment(tweet.full_text)
+                if self.detecto.bot_check(tweet.user) == False:
+                    # dictonary of tweets with text and sentiment
+                    parsed_tweet = {}
+                    # get full text of tweet
+                    try:
+                        if tweet.retweeted_status:
+                            parsed_tweet['text'] = tweet.retweeted_status.full_text
+                    except:
+                        parsed_tweet['text'] = tweet.full_text
+                    # get sentiment measure
+                    parsed_tweet['sentiment'] = self.get_tweet_sentiment(tweet.full_text)
 
-                # add unique tweets
-                if tweet.retweet_count > 0:
-                    if parsed_tweet not in tweets:
+                    # add unique tweets
+                    if tweet.retweet_count > 0:
+                        if parsed_tweet not in tweets:
+                            tweets.append(parsed_tweet)
+                    else:
                         tweets.append(parsed_tweet)
-                else:
-                    tweets.append(parsed_tweet)
 
             return tweets
 
@@ -90,9 +94,9 @@ def print_tweets(ptweets, ntweets, neutweets):
         print(neutweets.index(tweet) + 1, ' ', clean_tweet(tweet['text']))
 
 
-def main():
+def main(q):
     api = TwitterClient()
-    tweets = api.get_tweets(query='TESLA', count=100)
+    tweets = api.get_tweets(query=q, count=100)
 
     # get positive tweets and print their percentage
     ptweets = [tweet for tweet in tweets if tweet['sentiment'][0] == 'positive']
@@ -120,4 +124,4 @@ def main():
 
 if __name__ == "__main__":
     # calling main function
-    main()
+    main(q)
