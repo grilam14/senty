@@ -1,8 +1,8 @@
 import json
-import botometer
-import mysql.connector
+import botometer # pip install botometer
+import mysql.connector # pip install mysql-connector-python
 import difflib
-import tweepy
+import tweepy # pip install tweepy
 from tweepy import OAuthHandler
 from datetime import date
 from config import * # config contains API keys and database parameters
