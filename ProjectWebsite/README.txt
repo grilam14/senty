@@ -8,6 +8,7 @@ There are four components to this:
 2) HTML/CSS
 3) JavaScript
 4) Python(Flask)
+5) Install modules
 
 Parts:
 1) Open MySQL or MySql Workbench and run the sql script. It does the following:
@@ -39,11 +40,6 @@ Parts:
    To use flask, you have to download it on the terminal with the following commands(linux):
 	sudo pip install flask
 	sudo pip install flask-mysql
-   
-   The python file that contains the integration code is named web.py, in it, you'll need
-   to type in your password on line 9, where the password variable is assigned. MAKE SURE
-   YOU DO NOT PUSH THE FILE BACK UP TO GITHUB WITH YOUR PASSWORD STILL TYPED IN, if you do,
-   you're gonna have a baaad time and probably get your password stolen.
 
 5) Install all necessary dependencies
    In terminal:
@@ -57,7 +53,7 @@ Parts:
    pip3 install beautifulsoup4
    
 6) Set up config.py file:
-   Modify the provided config_template.py file with the necessary information, then rename this file to 
+   Modify the provided config_template.py file with the necessary information (keys, password, ect.), then rename this file to 
    config.py. config.py is necessary to set up the database as well as provide authorization for the APIs
    used in the website programming.
    
