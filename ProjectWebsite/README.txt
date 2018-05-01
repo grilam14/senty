@@ -63,4 +63,4 @@ Parts:
    
 7) Lastly, just run the command "python web.py", and the content from the code will be loaded
    onto a local webserver, the URL for mine is "http://127.0.0.1:5000/". The site has three
-   pages and supports adding new users to the 'tbl_user' sql table.
+   pages and supports adding new users, logging in, and performing searches for companys' sentiment.
