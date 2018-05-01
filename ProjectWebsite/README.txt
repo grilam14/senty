@@ -12,10 +12,15 @@ There are four components to this:
 Parts:
 1) Open MySQL or MySql Workbench and run the sql script. It does the following:
    i) Creates a database to store all the data for the website (named 'project')
-   ii) Creates a table to store the users (named 'tbl_user')
-   iii) Create a stored procedure to check if a username (email address) exists in
-	the database. If this is the case, it returns an error, if not, it adds the
-	new user's information (name, email, password) to the database.
+   ii) Creates a table to store the users (named 'tbl_user'), to hold users
+   iii) Creates a table to store the users (named 'scores'), to hold company scores
+   iv) Creates a stored procedure to check if a given username (email address) exists in
+	the database. If this is the case, it returns an error, indicating that the given
+	username is already in the database, if not, it adds the new user's information
+	(name, email, password) to the database.
+   v) Creates a stored procedure to check if a given username (email address) exists in
+	the database. If this is the case, return their password.
+   
    Addtionally, run the bot.sql and twitter_users.sql scripts. bot.sql creates a table
    to hold information about twitter accounts analyzed through Botometer. twitter_users.sql
    populates this table with information about roughly ~6000 twitter accounts
