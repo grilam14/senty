@@ -36,6 +36,22 @@ Parts:
    YOU DO NOT PUSH THE FILE BACK UP TO GITHUB WITH YOUR PASSWORD STILL TYPED IN, if you do,
    you're gonna have a baaad time and probably get your password stolen.
 
-5) Lastly, just run the command "python web.py", and the content from the code will be loaded
+5) Install all necessary dependencies
+   In terminal:
+   pip install mysql-connector-python
+   pip install tweepy
+   pip install botometer
+   pip3 install feedparser
+   pip3 install requests
+   pip3 install regex
+   pip3 install textblob
+   pip3 install beautifulsoup4
+   
+6) Set up config.py file:
+   Modify the provided config_template.py file with the necessary information, then rename this file to 
+   config.py. config.py is necessary to set up the database as well as provide authorization for the APIs
+   used in the website programming.
+   
+7) Lastly, just run the command "python web.py", and the content from the code will be loaded
    onto a local webserver, the URL for mine is "http://127.0.0.1:5000/". The site has three
    pages and supports adding new users to the 'tbl_user' sql table.
