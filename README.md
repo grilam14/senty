@@ -20,4 +20,7 @@ Inside the ProjectWebsite folder we have three main folders: SQL, static and tem
 Inside the SQL folder we have a SQL file called 'project'which will keep track of all the user's
 information. Inside the static folder we have two folders: css and jss. The css file will 
 be incharged of the style of the login, Senty and signup pages. Inside the templates folder
-we have the following HTML files: error, home, login, result. Then we have debug.log
+we have the following HTML files: error, home, login, signup, result. Then we have debug.log.
+The home page is the main page you see when you enter our projects website. The login page is incharged
+of letting you log in with a user name and password you already have created. The signup page allows
+yo to create a new account with a username and a password of your choice.
