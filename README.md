@@ -23,4 +23,6 @@ be incharged of the style of the login, Senty and signup pages. Inside the templ
 we have the following HTML files: error, home, login, signup, result. Then we have debug.log.
 The home page is the main page you see when you enter our projects website. The login page is incharged
 of letting you log in with a user name and password you already have created. The signup page allows
-yo to create a new account with a username and a password of your choice.
+yo to create a new account with a username and a password of your choice. Then the error page is the
+page you will be redirected to if your login or register fails. Ten we have the debug.log which function
+is to debug.
