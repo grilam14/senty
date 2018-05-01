@@ -4,6 +4,14 @@
 -- ------------------------------------------------------
 -- Server version	5.7.22-0ubuntu0.16.04.1
 
+/* * * * * * * * * * * * * * * * * * * *
+ * Set of data for ~6000 Twitter accounts 
+ * Run this script to populate twitter_users table with this data
+ * Provides large set of Twtitter accounts for bot detection to quickly
+ * query against.
+ *
+ * * * * * * * * * * * * * * * * * * * */
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
