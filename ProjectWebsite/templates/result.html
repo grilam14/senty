@@ -179,6 +179,12 @@ input {
       <p> {{ company }} has an average score in the news. While they're not getting themselves in to trouble, they're not doing anything spectacular either. Consider investing if looking for some riskier ventures.
       </p>
 
+      {% elif nScore == 0 %}
+      <h2 class="w3-padding-32" style="color:black"> --- </h2>
+
+      <p> Unfortunately, we were not able to complete your request with the query "{{ company }}." While we were able to get sentiment scores through Twitter, Seeking Alpha requires a company's stock ticker symbol to find relevant articles. Please request a new search with a valid ticker symbol to get results.
+      </p>
+
       {% else %}
       <h2 class="w3-padding-32" style="color:red"> {{ nScore }} </h2>
 
