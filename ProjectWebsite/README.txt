@@ -16,6 +16,10 @@ Parts:
    iii) Create a stored procedure to check if a username (email address) exists in
 	the database. If this is the case, it returns an error, if not, it adds the
 	new user's information (name, email, password) to the database.
+   Addtionally, run the bot.sql and twitter_users.sql scripts. bot.sql creates a table
+   to hold information about twitter accounts analyzed through Botometer. twitter_users.sql
+   populates this table with information about roughly ~6000 twitter accounts
+
 
 2) There is an HTML file and accompanying CSS file for each page on the website 
    (e.g. logIn, signUp, Home). I made minor changes to the Senty.HTML file 
