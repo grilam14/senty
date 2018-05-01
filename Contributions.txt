@@ -1,1 +1,51 @@
-Michael Gigiolio
+Documentation of Who Worked on What
+
+Andrew Grillot: 
+  1) Built SeekingAlpha webscraper, along with sentiment analysis score that it produces.
+  2) Worked on database in various capacities
+  3) Spent many hours debugging
+  4) Had minor role in Flask framework
+
+Jonathan Bayer:
+  1) Built bot detection methods and integrated them with twitter sentiment analysis. This required researching a lot of ways to find   
+   bots, realizing I can’t use any of them due to time constraints, then me realizing that bot detection is stupid and dumb.
+  2) Implemented displaying of sentiment scores on website, as well as reflecting a failed Seeking alpha search (if input is not a stock      ticker symbol)
+  3) Worked with database relevant to bots/twitter
+  4) Wrote tests for bot detection methods
+
+Stacy Hayes: 
+  1) Handled the website. Made both the original template (ended up getting rid of entirely) and final website design.
+  2) Coordinated tasks between group members (unofficial scrub master). This included making sure everyone had something to work on     
+  during/between meetings.
+  3) Documented every meeting: who worked on what and what was accomplished.
+  4) Made sure Trello, Gantt chart, etc. were up to date at any point.
+
+Michael Gigiolio:
+  1) Created the original login and registration pages for testing
+  2) Aided in some of the CSS and HTML formatting
+  3) Wrote Milestone 5 and officiated testing
+  4) Created the presentation and ensured everyone’s work was complete in time for the presentation
+
+Maxim Moghadam:
+  1) Twitter sentiment analysis
+    a) Created a python script that uses the Twitter API to grab the most recent 100 tweets with our query (ticker) inside the tweet,       then calculates a sentiment score for each tweet using textblob and returns the average of the scores.
+  2) SQL scripts
+    a) Created an SQL script that adds tables (users, scores) and procedures for checking if a username exists(to create a new account) 
+    and checking a user’s password (to login) to a ‘project’ database.
+    b) Created the functionality of recording a user’s ID in the ‘scores’ table if they are logged in when performing a search
+  3) Create-user functionality
+    a) Created an HTML page linked to flask and MySQL that supports checking if a given username exists and adds it to the user table if 
+    it does not.
+  4) Login-functionality
+    a) Created an HTML page linked to flask and MySQL that supports checking if a given username exists and then returns their password     to check it against a given password.
+  5) Python-Flask integration
+    a) Spearheaded the integration of Flask with our project, creating most pages and consistently updating the links and other aspects     the framework
+
+
+Juan Fran Ferrer-Peasley:
+  1) Started by trying to implement natural language processing, but stopped working on it by advice of the TA, since it was very 
+  complex to achieve in one semester
+  2) Worked on the website, choosing templates and making it look professional
+  3) Helped with the Agile and Group Meeting documents on github, documenting what each person was working on and how we were 
+  progressing.
+  4) Wrote the readme.md file on github
