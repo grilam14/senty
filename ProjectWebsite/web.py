@@ -47,7 +47,7 @@ def index():
 def home():
     if request.method == 'GET':
         if session.get('user'):
-            return render_template('home.html')
+            return render_template('home.html', name = session.get('name'))
         else:
             return render_template('error.html',error = 'Unauthorized Access')
 
@@ -70,13 +70,15 @@ def result():
         conn.commit()
         cur.close()
         return render_template('result.html', tScore = twitterScore, 
-            nScore = newscore, company = newticker)
+            nScore = newscore, company = newticker, 
+            user = session.get('user'), name = session.get('name'))
     else:
         return redirect('/home')
 
 @app.route('/logout')
 def logout():
     session.pop('user',None)
+    session.pop('name',None)
     return redirect('/')
 
 
@@ -107,6 +109,7 @@ def validateLogin():
             print (data[0][3])
             if str(data[0][3]) ==_password:
                 session['user'] = data[0][0]
+                session['name'] = data[0][1]
                 return redirect(url_for('home'))
             else:
                 return render_template('error.html',error = 'Wrong Email address or Password.')

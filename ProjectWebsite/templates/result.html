@@ -106,11 +106,19 @@ input {
 <header class="w3-container" style="background-color:#92a8d1" >
   <div id="input" class="w-3 container" style="text-align:right">
     <p>
+      {% if user == None %}
+      <a href="/showSignIn">Log In</a>
+        |
+      <a href="/">Senty</a>
+
+      {% else %}
+      Welcome {{ name }}
+      |
       <a href="/logout">Log Out</a>
-        |
-      <a href="signUp">Sign Up</a>
-        |
-      <a href="/">Home</a>
+      |
+      <a href="/home">Home</a>
+
+      {% endif %}
     </p>
   </div>
   <h1 class="w3-margin w3-jumbo" style=" font-family: Verdana; color:#5B1B7C"><u><b>Welcome to Senty</b></u></h1>
