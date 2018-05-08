@@ -12,6 +12,7 @@ Jonathan Bayer:
   2) Implemented displaying of sentiment scores on website, as well as reflecting a failed Seeking alpha search (if input is not a stock      ticker symbol)
   3) Worked with database relevant to bots/twitter
   4) Wrote tests for bot detection methods
+  5) Implemented feature allowing users to view their past searches
 
 Stacy Hayes: 
   1) Handled the website. Made both the original template (ended up getting rid of entirely) and final website design.
