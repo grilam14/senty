@@ -73,7 +73,17 @@ def result():
             nScore = newscore, company = newticker, 
             user = session.get('user'), name = session.get('name'))
     else:
-        return redirect('/home')
+        company = session.get('company')
+        tScore = session.get('tScore')
+        nScore = session.get('nScore')
+        session.pop('company',None)
+        session.pop('tScore',None)
+        session.pop('nScore',None)
+        
+        return render_template('result.html', tScore = tScore, 
+            nScore = nScore, company = company, 
+            user = session.get('user'), name = session.get('name'))
+
 
 @app.route('/logout')
 def logout():
@@ -155,6 +165,28 @@ def signUp():
     else:
         return render_template('signup.html')
 
+
+@app.route('/account',methods=['POST','GET'])
+def account():
+    if request.method == 'GET':
+        user = session.get('user')
+        if user > 0:
+
+            conn = mysql.connect()
+            cur = conn.cursor()
+            query = "SELECT * FROM scores WHERE user_id = '%s' AND score > 0"
+            cur.execute(query, (user))
+            data = cur.fetchall()
+            length = len(data)
+            return render_template('account.html', data = data, length = length, 
+                name = session.get('name'))
+        else:
+            return render_template('error.html',error = 'You must login first')
+    else:
+        session['company'] = request.form['company']
+        session['nScore'] = request.form['nScore']
+        session['tScore'] = request.form['tScore']
+        return redirect('/result')
 
 if __name__ == "__main__":
     

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>{{ company }} Sentiment</title>
+<title>Your Account</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -113,9 +113,6 @@ input {
 
       {% else %}
       Welcome {{ name }}
-      |
-      <a href='/account'>Account</a>
-      |
       <a href="/home">Home</a>
       |
       <a href="/logout">Log Out</a>
@@ -140,27 +137,30 @@ input {
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-twothird">
-      <h1>Scores for {{ company }}</h1>
-      <h1>Twitter Sentiment</h1>
+      <h1>Your Previous Searches</h1>
+      {% for x in range(0, length) %}
+      <div style="width:520px; height:170px; margin:20px">
 
-      {% if tScore > 12.0 %}
-      <h2 class="w3-padding-32" style="color:green"> {{ tScore }} </h2>
+        <div align="left" style="width:200px; background-color:gray; float:left; height:150px; padding:10px">
 
-      <p> {{ company }} scores well with Twitter users. The company may have recently made a great PR move or released a well-received product. Consider investing, but take caution as public opinion does not always mirror financial wellbeing.
-      </p>
+          <h1 style="color:white"> {{ data[x][0] }} </h1>
 
-      {% elif tScore > 9.5 %}
-      <h2 class="w3-padding-32" style="color:orange"> {{ tScore }} </h2>
+        </div>
 
-      <p> {{ company }} has an average score with Twitter users. The public does not feel very strongly about this company. Consider as a long term, relatively low risk investment
-      </p>
+        <div align="right" style="width:320px; background-color:lightgray; float:right; height:150px; padding:10px; padding-bottom:10px">
 
-      {% else %}
-      <h2 class="w3-padding-32" style="color:red"> {{ tScore }} </h2>
+          <h2>Twitter: {{ data[x][2] }}</h2>
+          <h2>News: {{ data[x][1] }}</h2>
+          <form action="http://localhost:5000/account" method="POST">
+            <input type="hidden" value="{{ data[x][0] }}" name="company">
+            <input type="hidden" value="{{ data[x][1] }}" name="nScore">
+            <input type="hidden" value="{{ data[x][2] }}" name="tScore">
+            <button type="submit" style="border:none; background-color:transparent; outline:none; cursor:pointer; color:dimgray; margin-bottom:10px">Details</button>
+          </form>
 
-      <p> {{ company }} is not well liked by Twitter users. This suggests the company has recently done something to make the internet angry. In response to this you should BUY THE DIP
-      </p>
-      {% endif %}
+        </div>
+      </div>
+      {% endfor %}
 
     </div>
 
@@ -170,37 +170,14 @@ input {
   </div>
 </div>
 
-<!-- Second Grid -->
+<!-- Second Grid 
 
 <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-twothird">
-      <h1>News Media Sentiment</h1>
 
-      {% if nScore > 12.0 %}
-      <h2 class="w3-padding-32" style="color:green"> {{ nScore }} </h2>
 
-      <p> {{ company }} scores well in the news. This suggests the company has has done something recently to make itself look good to journalists. Strongly consider investing. 
-      </p>
 
-      {% elif nScore > 9.5 %}
-      <h2 class="w3-padding-32" style="color:orange"> {{ nScore }} </h2>
-
-      <p> {{ company }} has an average score in the news. While they're not getting themselves in to trouble, they're not doing anything spectacular either. Consider investing if looking for some riskier ventures.
-      </p>
-
-      {% elif nScore == 0 %}
-      <h2 class="w3-padding-32" style="color:black"> --- </h2>
-
-      <p> Unfortunately, we were not able to complete your request with the query "{{ company }}." While we were able to get sentiment scores through Twitter, Seeking Alpha requires a company's stock ticker symbol to find relevant articles. Please request a new search with a valid ticker symbol to get results.
-      </p>
-
-      {% else %}
-      <h2 class="w3-padding-32" style="color:red"> {{ nScore }} </h2>
-
-      <p> {{ company }} has a poor score in the news. The comapny may have recently posted financial losses or made a bad PR move. The obvious best move is to BUY THE DIP
-      </p>
-      {% endif %}
 
     </div>
     <div class="w3-third w3-right">
@@ -208,6 +185,8 @@ input {
     </div>
   </div>
 </div>
+
+-->
 
 <div class="w3-container w3-black w3-center w3-opacity w3-padding-32">
   <div class=row>
@@ -222,18 +201,6 @@ input {
     </div>
   </div>
 </div>
-
-<script>
-// Used to toggle the menu on small screens when clicking on the menu button
-function myFunction() {
-    var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else { 
-        x.className = x.className.replace(" w3-show", "");
-    }3
-}
-</script>
 
 </body>
 </html>
